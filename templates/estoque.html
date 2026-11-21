@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Estoque{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <div>
+    <h1>Estoque</h1>
+    <p>{{ produtos|length }} produto(s) cadastrado(s).</p>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-head">
+    <h2>Capital imobilizado por categoria</h2>
+  </div>
+  {% if categorias %}
+    {% for c in categorias %}
+    <div class="bar-row">
+      <span>{{ c.label }}</span>
+      <div class="bar-track"><div class="bar-fill" style="width: {{ c.pct }}%"></div></div>
+      <span class="mono-num">{{ c.valor }}</span>
+    </div>
+    {% endfor %}
+  {% else %}
+    <p class="empty-note">Sem categorias cadastradas.</p>
+  {% endif %}
+</div>
+
+<div class="panel">
+  <div class="panel-head">
+    <h2>Itens em estoque</h2>
+    <span class="note">produtos abaixo do mínimo aparecem sinalizados</span>
+  </div>
+  {% if produtos %}
+  <table>
+    <thead>
+      <tr>
+        <th>Produto</th><th>Categoria</th><th class="num">Qtd.</th>
+        <th class="num">Mínimo</th><th>Fornecedor</th>
+        <th class="num">Custo un.</th><th class="num">Valor total</th><th>Situação</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in produtos %}
+      <tr>
+        <td>{{ p.nome }}</td>
+        <td>{{ p.categoria }}</td>
+        <td class="num mono-num">{{ p.quantidade_estoque }}</td>
+        <td class="num mono-num">{{ p.estoque_minimo }}</td>
+        <td>{{ p.fornecedor }}</td>
+        <td class="num mono-num">R$ {{ "%.2f"|format(p.custo_unitario) }}</td>
+        <td class="num mono-num">R$ {{ "%.2f"|format(p.valor_estoque) }}</td>
+        <td>
+          {% if p.critico %}
+          <span class="badge warn">repor</span>
+          {% else %}
+          <span class="badge ok">ok</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty-note">Nenhum produto cadastrado.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

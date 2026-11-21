@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Painel Operacional{% endblock %} · Loja</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="mark">Loja / Painel</span>
+        <span class="sub">vendas · estoque · logística</span>
+      </div>
+
+      <nav class="nav">
+        <span class="group-label">Visão geral</span>
+        <a href="{{ url_for('dashboard') }}" class="{{ 'active' if request.endpoint == 'dashboard' }}">Dashboard</a>
+
+        <span class="group-label">Operação</span>
+        <a href="{{ url_for('vendas') }}" class="{{ 'active' if request.endpoint == 'vendas' }}">Vendas</a>
+        <a href="{{ url_for('estoque') }}" class="{{ 'active' if request.endpoint == 'estoque' }}">Estoque</a>
+        <a href="{{ url_for('logistica') }}" class="{{ 'active' if request.endpoint == 'logistica' }}">Logística</a>
+      </nav>
+
+      <div class="sidebar-foot">
+        Dados de estoque.csv, vendas.csv e logistica.csv, servidos via SQLite.
+      </div>
+    </aside>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Logística{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <div>
+    <h1>Logística</h1>
+    <p>{{ envios|length }} envio(s) registrado(s).</p>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-head">
+    <h2>Pontualidade por transportadora</h2>
+    <span class="note">atraso médio, em dias — quanto menor, melhor</span>
+  </div>
+  {% if ranking %}
+  <table>
+    <thead>
+      <tr><th>Transportadora</th><th class="num">Entregas</th><th class="num">Atraso médio</th></tr>
+    </thead>
+    <tbody>
+      {% for t in ranking %}
+      <tr>
+        <td>{{ t.transportadora }}</td>
+        <td class="num mono-num">{{ t.entregas }}</td>
+        <td class="num mono-num">
+          {% if t.atraso_medio > 0 %}
+            <span class="badge warn">+{{ t.atraso_medio }} d</span>
+          {% else %}
+            <span class="badge ok">{{ t.atraso_medio }} d</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty-note">Sem entregas concluídas ainda.</p>
+  {% endif %}
+</div>
+
+<div class="panel">
+  <div class="panel-head">
+    <h2>Rastreamento de envios</h2>
+  </div>
+  {% if envios %}
+  <table>
+    <thead>
+      <tr>
+        <th>Pedido</th><th>Produto</th><th>Transportadora</th>
+        <th>Despacho</th><th>Prev. entrega</th><th>Entrega real</th>
+        <th>Destino</th><th class="num">Atraso</th><th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for e in envios %}
+      <tr>
+        <td>{{ e.venda_id }}</td>
+        <td>{{ e.produto }}</td>
+        <td>{{ e.transportadora }}</td>
+        <td>{{ e.data_despacho }}</td>
+        <td>{{ e.data_entrega_prevista }}</td>
+        <td>{{ e.data_entrega_real if e.data_entrega_real else "—" }}</td>
+        <td>{{ e.cidade_destino }}/{{ e.estado_destino }}</td>
+        <td class="num mono-num">{{ e.atraso_dias if e.atraso_dias is not none else "—" }}</td>
+        <td><span class="badge {{ e.badge }}">{{ e.status_entrega }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty-note">Nenhum envio encontrado.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

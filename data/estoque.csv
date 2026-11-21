@@ -1,0 +1,6 @@
+produto_id,nome,categoria,quantidade_estoque,estoque_minimo,fornecedor,custo_unitario
+P001,Camiseta Básica,Vestuário,85,20,Têxtil Brasil,60.00
+P002,Notebook Gamer,Eletrônicos,12,5,TechImport,420.00
+P003,Caneca Personalizada,Utilidades,200,30,ArtePrint,12.00
+P004,Fone Bluetooth,Eletrônicos,34,10,TechImport,130.00
+P005,Boné Bordado,Vestuário,150,25,Têxtil Brasil,28.00

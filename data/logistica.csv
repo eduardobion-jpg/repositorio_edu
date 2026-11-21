@@ -1,0 +1,13 @@
+logistica_id,venda_id,transportadora,data_despacho,data_entrega_prevista,data_entrega_real,status_entrega,cidade_destino,estado_destino
+L001,V001,Correios,2024-01-06,2024-01-10,2024-01-09,entregue,São Paulo,SP
+L002,V002,FedEx,2024-01-08,2024-01-11,2024-01-12,entregue,Rio de Janeiro,RJ
+L003,V003,Correios,2024-01-11,2024-01-16,2024-01-15,entregue,Curitiba,PR
+L004,V005,TransBrasil,2024-01-16,2024-01-22,2024-01-23,entregue,Belo Horizonte,MG
+L005,V006,FedEx,2024-01-19,2024-01-22,2024-01-22,entregue,Fortaleza,CE
+L006,V007,Correios,2024-01-21,2024-01-28,2024-01-30,entregue,Recife,PE
+L007,V008,TransBrasil,2024-01-23,2024-01-30,,em_transito,Salvador,BA
+L008,V009,FedEx,2024-01-26,2024-01-29,2024-01-28,entregue,Manaus,AM
+L009,V010,Correios,2024-02-02,2024-02-09,2024-02-08,entregue,Porto Alegre,RS
+L010,V011,TransBrasil,2024-02-04,2024-02-10,2024-02-11,entregue,Brasília,DF
+L011,V013,Correios,2024-02-09,2024-02-16,,aguardando_retirada,Goiânia,GO
+L012,V015,FedEx,2024-02-13,2024-02-16,2024-02-15,entregue,Florianópolis,SC

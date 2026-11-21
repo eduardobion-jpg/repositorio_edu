@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Vendas{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <div>
+    <h1>Vendas</h1>
+    <p>{{ vendas|length }} pedido(s) listado(s).</p>
+  </div>
+</div>
+
+<div class="filters">
+  <a href="{{ url_for('vendas', status='todas') }}" class="{{ 'active' if status_filtro == 'todas' }}">Todas</a>
+  <a href="{{ url_for('vendas', status='concluida') }}" class="{{ 'active' if status_filtro == 'concluida' }}">Concluídas</a>
+  <a href="{{ url_for('vendas', status='pendente') }}" class="{{ 'active' if status_filtro == 'pendente' }}">Pendentes</a>
+  <a href="{{ url_for('vendas', status='cancelada') }}" class="{{ 'active' if status_filtro == 'cancelada' }}">Canceladas</a>
+</div>
+
+<div class="panel">
+  {% if vendas %}
+  <table>
+    <thead>
+      <tr>
+        <th>Pedido</th><th>Produto</th><th>Cliente</th><th>Data</th>
+        <th class="num">Qtd.</th><th class="num">Preço un.</th><th class="num">Total</th><th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for v in vendas %}
+      <tr>
+        <td>{{ v.venda_id }}</td>
+        <td>{{ v.produto }}</td>
+        <td>{{ v.cliente }}</td>
+        <td>{{ v.data_venda }}</td>
+        <td class="num mono-num">{{ v.quantidade }}</td>
+        <td class="num mono-num">R$ {{ "%.2f"|format(v.preco_unitario) }}</td>
+        <td class="num mono-num">R$ {{ "%.2f"|format(v.valor_total) }}</td>
+        <td><span class="badge {{ v.badge }}">{{ v.status }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty-note">Nenhuma venda encontrada para este filtro.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,290 @@
+/* ── Design tokens ─────────────────────────────────────── */
+:root {
+  --bg:          #14171c;
+  --panel:       #1c2029;
+  --panel-alt:   #20242e;
+  --border:      #2a2f3a;
+  --text:        #e9e7e1;
+  --text-muted:  #9aa0ac;
+  --teal:        #2fb8a6;
+  --teal-dim:    #1f4f49;
+  --amber:       #e3a548;
+  --amber-dim:   #4a3a20;
+  --red:         #e0645a;
+  --red-dim:     #4a2523;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body:    "IBM Plex Sans", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ── Shell layout ──────────────────────────────────────── */
+.shell {
+  display: grid;
+  grid-template-columns: 232px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand .mark {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.brand .sub {
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.nav { display: flex; flex-direction: column; gap: 2px; }
+
+.nav a {
+  padding: 9px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--text-muted);
+  border-left: 2px solid transparent;
+}
+
+.nav a:hover { color: var(--text); background: var(--panel-alt); }
+
+.nav a.active {
+  color: var(--text);
+  background: var(--panel-alt);
+  border-left: 2px solid var(--teal);
+}
+
+.nav .group-label {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin: 14px 0 2px 12px;
+  opacity: 0.7;
+}
+
+.sidebar-foot {
+  margin-top: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+
+main {
+  padding: 36px 44px 60px;
+  max-width: 1180px;
+}
+
+.page-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.page-head h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 26px;
+  margin: 0;
+}
+
+.page-head p {
+  color: var(--text-muted);
+  margin: 4px 0 0;
+  font-size: 14px;
+}
+
+/* ── KPI cards ─────────────────────────────────────────── */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.kpi {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 18px 20px;
+}
+
+.kpi .value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.kpi .label {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.kpi.accent-teal .value  { color: var(--teal); }
+.kpi.accent-amber .value { color: var(--amber); }
+.kpi.accent-red .value   { color: var(--red); }
+
+/* ── Panels / sections ─────────────────────────────────── */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px 24px;
+  margin-bottom: 26px;
+}
+
+.panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.panel-head h2 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.panel-head .note { color: var(--text-muted); font-size: 13px; }
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .two-col { grid-template-columns: 1fr; }
+}
+
+/* ── Tables ────────────────────────────────────────────── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 10px;
+  white-space: nowrap;
+}
+
+td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+tr:last-child td { border-bottom: none; }
+
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.mono-num { font-variant-numeric: tabular-nums; }
+
+/* ── Status badges ─────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 20px;
+  font-size: 12px;
+  border: 1px solid transparent;
+}
+
+.badge.ok       { color: var(--teal);  background: var(--teal-dim); }
+.badge.warn     { color: var(--amber); background: var(--amber-dim); }
+.badge.bad      { color: var(--red);   background: var(--red-dim); }
+.badge.neutral  { color: var(--text-muted); background: var(--panel-alt); border-color: var(--border); }
+
+/* ── Bars (simple inline visual) ───────────────────────── */
+.bar-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 90px;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  font-size: 13.5px;
+}
+
+.bar-track {
+  height: 8px;
+  background: var(--panel-alt);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--teal);
+  border-radius: 4px;
+}
+
+.bar-row.amber .bar-fill { background: var(--amber); }
+
+.empty-note {
+  color: var(--text-muted);
+  font-size: 13.5px;
+  padding: 6px 0;
+}
+
+/* ── Filters ───────────────────────────────────────────── */
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.filters a {
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.filters a.active {
+  color: var(--bg);
+  background: var(--teal);
+  border-color: var(--teal);
+}

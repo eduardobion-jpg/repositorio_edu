@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <div>
+    <h1>Dashboard</h1>
+    <p>Panorama consolidado de vendas, estoque e logística.</p>
+  </div>
+</div>
+
+<div class="kpi-row">
+  {% for kpi in kpis %}
+  <div class="kpi {{ 'accent-' + kpi.accent if kpi.accent }}">
+    <div class="value">{{ kpi.value }}</div>
+    <div class="label">{{ kpi.label }}</div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="two-col">
+  <div class="panel">
+    <div class="panel-head">
+      <h2>Receita por produto</h2>
+      <span class="note">vendas concluídas</span>
+    </div>
+    {% if barras_produtos %}
+      {% for b in barras_produtos %}
+      <div class="bar-row">
+        <span>{{ b.label }}</span>
+        <div class="bar-track"><div class="bar-fill" style="width: {{ b.pct }}%"></div></div>
+        <span class="mono-num">{{ b.valor }}</span>
+      </div>
+      {% endfor %}
+    {% else %}
+      <p class="empty-note">Sem vendas concluídas registradas.</p>
+    {% endif %}
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2>Pedidos por status</h2>
+    </div>
+    <div class="bar-row">
+      <span>Concluídos</span>
+      <div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div>
+      <span class="mono-num">{{ pedidos_concluida }}</span>
+    </div>
+    <div class="bar-row amber">
+      <span>Cancelados</span>
+      <div class="bar-track"><div class="bar-fill" style="width: {{ (pedidos_cancelada / (pedidos_concluida + pedidos_cancelada) * 100) if (pedidos_concluida + pedidos_cancelada) else 0 }}%"></div></div>
+      <span class="mono-num">{{ pedidos_cancelada }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-head">
+    <h2>Evolução mensal de receita</h2>
+    <span class="note">vendas concluídas, por mês</span>
+  </div>
+  {% if barras_mensal %}
+    {% for b in barras_mensal %}
+    <div class="bar-row">
+      <span>{{ b.label }}</span>
+      <div class="bar-track"><div class="bar-fill" style="width: {{ b.pct }}%"></div></div>
+      <span class="mono-num">{{ b.valor }}</span>
+    </div>
+    {% endfor %}
+  {% else %}
+    <p class="empty-note">Sem histórico de vendas suficiente.</p>
+  {% endif %}
+</div>
+
+{% endblock %}
